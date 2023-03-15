@@ -13,20 +13,20 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import AllItem from './AllItem';
+import UserInventory from './UserInventory';
+import Login from './Login';
+import AddReciept from './AddReciept';
 
 
-const pages = ['All Items', 'Equipments', 'Condiments', 'Vegtables' ];
-const settings = ['Profile', 'Account', 'Add Items', 'History Log', 'Logout'];
+const pages = ['Inventory','Add Reciept'];
+const settings = ['Profile',  'Logout'];
 
 
 
-function ResponsiveAppBar() {
-  const [showAllItem, setShowAllItem] = useState(true)
-  const [showTittle, setShowTittle] = useState('All Item')
-  const [showAdd, setShowAdd] = useState(false)
-  const [showUpdate, setShowUpdate] = useState(false)
-  const [showDelete, setShowDelete] = useState(false)
+export default function UserHeader() {
+  const [showLogin, setShowLogin] = useState(true)
+  const [showInventory, setShowInventory] = useState(true)
+  const [showReciept, setShowReciept] = useState(false)
 
 
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -41,41 +41,28 @@ function ResponsiveAppBar() {
 
   const handleCloseNavMenu = (e) => {
     setAnchorElNav(null);
-    if(e === 'All Items'){
-      setShowTittle(e);
-      setShowAllItem(true);
-      setShowAdd(false);
-      setShowUpdate(false);
-      setShowDelete(false);
-    }
-    else if(e === 'Equipments'){
-      setShowTittle(e);
-      setShowAllItem(false);
-      setShowAdd(true);
-      setShowUpdate(false);
-      setShowDelete(false);
-    }
-    else if(e === 'Condiments'){
-      setShowTittle(e);
-      setShowAllItem(false);
-      setShowAdd(false);
-      setShowUpdate(true);
-      setShowDelete(false);
-    }
-    else if(e === 'Vegtables'){
-      setShowTittle(e);
-      setShowAllItem(false);
-      setShowAdd(false);
-      setShowUpdate(false);
-      setShowDelete(true);
-    }
+    if(e === 'Inventory'){
+        setShowReciept(false);
+        setShowInventory(true);
+      }
+      //show add receipt page
+      else if(e === 'Add Reciept'){
+        setShowReciept(true);
+        setShowInventory(false);
+      }
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (e) => {
     setAnchorElUser(null);
-  };
+    if(e === 'Logout'){
+        setShowLogin(false);
+      }
+    };
 
-
+    //show Login
+    if(!showLogin){
+      return <Login/>;
+    }
 
   return (
     <>
@@ -98,7 +85,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            {showTittle}
+            Inventory
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -154,7 +141,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            {showTittle}
+            Inventory
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -171,7 +158,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Julia" src="https://i.pinimg.com/736x/cb/8f/a5/cb8fa52e39e649e6c918da5e30d0e021.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -200,8 +187,8 @@ function ResponsiveAppBar() {
         </Toolbar>
       </Container>
     </AppBar>
-    {showAllItem && <AllItem/>}
+    {showInventory && <UserInventory/>}
+    {showReciept && <AddReciept/>}
     </>
   );
 }
-export default ResponsiveAppBar;

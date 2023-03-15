@@ -9,6 +9,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import AdminHeader from './AdminHeader';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,7 +56,28 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function AllItem() {
+export default function UserInventory() {
+    const [column, setColumn] = React.useState(4);
+  const handleChange = (event) => {
+    setColumn(event.target.value);
+  };
+
+  const [category, setCategory] = React.useState('All Items');
+  <AdminHeader title={category} />
+  const handleCategory = (event) => {
+    setCategory(event.target.value);
+  };
+
+  const handleImageClick = (e) => {
+    alert('CLicked');
+  }
+
+  const [sort, setSort] = React.useState('Expiry Date');
+  <AdminHeader title={category} />
+  const handleSort = (event) => {
+    setSort(event.target.value);
+  };
+
   // Define the state variable for the search query
   const [searchQuery, setSearchQuery] = React.useState('');
 
@@ -81,7 +106,7 @@ export default function AllItem() {
               component="div"
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
             >
-              All Items
+              {category}
             </Typography>
             <Search>
               <SearchIconWrapper>
@@ -98,25 +123,73 @@ export default function AllItem() {
         </AppBar>
       </Box>
 
-          <Box sx={{ marginTop: 8 }}>
-        <ImageList sx={{ width: '100%', height: 'auto' }} cols={2} gap={8}>
-          {filteredItemData.map((item) => (
-            <ImageListItem key={item.img} >
-              <img
-                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.title}
-                loading="lazy"
-              />
-              <ImageListItemBar
-                title={item.title}
-                subtitle={<span>[Quantity: {item.quantity}] [Price: {item.price}]</span>}
+      <Box style={{display: "flex", flexDirection: "row"}}>
+  <Box style={{display: "flex", flexDirection: "column"}}>
+    <InputLabel id="demo-simple-select-label">Column</InputLabel>
+    <Select
+      labelId="demo-simple-select-label"
+      id="demo-simple-select"
+      value={column}
+      label="Column"
+      onChange={handleChange}
+    >
+      <MenuItem value={2}>Column: 2</MenuItem>
+      <MenuItem value={3}>Column: 3</MenuItem>
+      <MenuItem value={4}>Column: 4</MenuItem>
+      <MenuItem value={5}>Column: 5</MenuItem>
+    </Select>
+  </Box>
+  <Box style={{display: "flex", flexDirection: "column"}}>
+    <InputLabel id="demo-simple-select-label">Category</InputLabel>
+    <Select
+      labelId="demo-simple-select-label"
+      id="demo-simple-select"
+      value={category}
+      label="Category"
+      onChange={handleCategory}
+    >
+      <MenuItem value={'All Items'}>All Items</MenuItem>
+      <MenuItem value={'Equipments'}>Equipments</MenuItem>
+      <MenuItem value={'Vegetables'}>Vegetables</MenuItem>
+      <MenuItem value={'Condiments'}>Condiments</MenuItem>
+      <MenuItem value={'Utensils'}>Untensils</MenuItem>
+    </Select>
+  </Box>
+  <Box style={{display: "flex", flexDirection: "column"}}>
+    <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
+    <Select
+      labelId="demo-simple-select-label"
+      id="demo-simple-select"
+      value={sort}
+      label="sort"
+      onChange={handleSort}
+    >
+      <MenuItem value={'Price'}>Price</MenuItem>
+      <MenuItem value={'Quantity'}>Quantity</MenuItem>
+      <MenuItem value={'Date Added'}>Date Added</MenuItem>
+      <MenuItem value={'Expiry Date'}>Expiry Date</MenuItem>
+    </Select>
+  </Box>
+</Box>
 
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
-      </Box>
+<Box sx={{ marginTop: 8 }}>
+  <ImageList sx={{ width: '100%', height: 'auto' }} cols={column} gap={8}>
+    {filteredItemData.map((item) => (
+      <ImageListItem key={item.img} onClick={() => handleImageClick(item.title)}>
+        <img
+          src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+          srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+          alt={item.title}
+          loading="lazy"
+        />
+        <ImageListItemBar
+          title={item.title}
+          subtitle={<span>[Quantity: {item.quantity}] [Price: {item.price}]</span>}
+        />
+      </ImageListItem>
+    ))}
+  </ImageList>
+</Box>
     </>
   );
 }
