@@ -45,6 +45,11 @@ export default function AdminHeader(props) {
     setShowProfile(false);
   };
 
+  const [showHistory, setShowHistory] = React.useState(false);
+  const HandleShowHistory = () => {
+    setShowHistory(false);
+  };
+
   const [showCreateUser, setShowCreateUser] = React.useState(false);
   const HandleShowCreateUser = () => {
     setShowCreateUser(false);
@@ -95,6 +100,9 @@ export default function AdminHeader(props) {
     }
     else if (e === "Create New User") {
       setShowCreateUser(true);
+    }
+    else if (e === "History Log") {
+      setShowHistory(true);
     }
   };
   //show Login
@@ -328,6 +336,28 @@ export default function AdminHeader(props) {
           <DialogActions>
             <Button onClick={HandleAddReciept}>Cancel</Button>
             <Button onClick={HandleAddReciept}>Add Reciept</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
+      <div>
+        <Dialog open={showHistory} onClose={HandleShowHistory}>
+          <DialogTitle>History/Logs</DialogTitle>
+          <DialogContent>
+            <Card sx={{ maxWidth: 345 }}>
+              <CardContent>
+              <div>
+                  <h4 style={{ marginRight: "10px" }}>Super Admin logged in successfull on 12:39 PM Friday, March 17, 2023</h4>
+                  <h4 style={{ marginRight: "10px" }}>New Item: Eggplant has been created successfully by Super Admin, March 16, 2023</h4>
+                  <h4 style={{ marginRight: "10px" }}>Item: Milk used at Quantity: 18 by Admin on 9:00 AM Monday, March 13,2023</h4>
+                  <h4 style={{ marginRight: "10px" }}>Super Admin archived item: Onion on 7:30 PM Tuesday, March 14,2023</h4>
+                  <h4 style={{ marginRight: "10px" }}>Super Admin renamed item: Onion into item: Onion Leaks 6:00 AM Monday, March 13, 2023</h4>
+                </div>
+              </CardContent>
+            </Card>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={HandleShowHistory}>Back</Button>
           </DialogActions>
         </Dialog>
       </div>
