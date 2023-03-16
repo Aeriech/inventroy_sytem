@@ -235,7 +235,7 @@ export default function UserHeader() {
           <DialogTitle>Add Reciept</DialogTitle>
           <DialogContent>
             <Card sx={{ maxWidth: 345 }}>
-              <CardMedia component="img" height="200" />
+              <CardMedia component="img" height="200" src="https://th.bing.com/th/id/OIP.GU-lbMLeHNcp4LZUtNO2ugHaHa?pid=ImgDet&rs=1"/>
               <CardContent>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <h4 style={{ marginRight: "10px" }}>Description</h4>
