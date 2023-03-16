@@ -1,18 +1,26 @@
 import * as React from 'react';
-import { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import { useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import AdbIcon from "@mui/icons-material/Adb";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import TextField from "@mui/material/TextField";
+import CardContent from "@mui/material/CardContent";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import UserInventory from './UserInventory';
 import Login from './Login';
 import AddReciept from './AddReciept';
@@ -24,6 +32,16 @@ const settings = ['Profile',  'Logout'];
 
 
 export default function UserHeader() {
+  const [addReciept, setAddReciept] = React.useState(false);
+  const HandleAddReciept = () => {
+    setAddReciept(false);
+  };
+
+  const [showProfile, setShowProfile] = React.useState(false);
+  const HandleShowProfile = () => {
+    setShowProfile(false);
+  };
+
   const [showLogin, setShowLogin] = useState(true)
   const [showInventory, setShowInventory] = useState(true)
   const [showReciept, setShowReciept] = useState(false)
@@ -47,8 +65,7 @@ export default function UserHeader() {
       }
       //show add receipt page
       else if(e === 'Add Reciept'){
-        setShowReciept(true);
-        setShowInventory(false);
+        setAddReciept(true);
       }
   };
 
@@ -56,6 +73,9 @@ export default function UserHeader() {
     setAnchorElUser(null);
     if(e === 'Logout'){
         setShowLogin(false);
+      }
+      else if(e === 'Profile'){
+        setShowProfile(true);
       }
     };
 
@@ -189,6 +209,64 @@ export default function UserHeader() {
     </AppBar>
     {showInventory && <UserInventory/>}
     {showReciept && <AddReciept/>}
+
+    <div>
+        <Dialog open={showProfile} onClose={HandleShowProfile}>
+          <DialogTitle>Profile</DialogTitle>
+          <DialogContent>
+            <Card sx={{ maxWidth: 345 }}>
+              <CardMedia component="img" height="200" src="https://i.pinimg.com/736x/cb/8f/a5/cb8fa52e39e649e6c918da5e30d0e021.jpg"/>
+              <CardContent>
+              <div>
+                  <h4 style={{ marginRight: "10px" }}>Account Type: Admin</h4>
+                  <h4 style={{ marginRight: "10px" }}>Name: Julia Almoite</h4>
+                </div>
+              </CardContent>
+            </Card>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={HandleShowProfile}>Back</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
+      <div>
+        <Dialog open={addReciept} onClose={HandleAddReciept}>
+          <DialogTitle>Add Reciept</DialogTitle>
+          <DialogContent>
+            <Card sx={{ maxWidth: 345 }}>
+              <CardMedia component="img" height="200" />
+              <CardContent>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <h4 style={{ marginRight: "10px" }}>Description</h4>
+                  <TextField
+                    required
+                    id="filled-required"
+                    variant="filled"
+                    fullWidth="true"
+                    size="small"
+                  />
+                </div>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <h4 style={{ marginRight: "10px" }}>Date In Receipt</h4>
+                  <TextField
+                    required
+                    id="filled-required"
+                    variant="filled"
+                    fullWidth="true"
+                    size="small"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={HandleAddReciept}>Cancel</Button>
+            <Button onClick={HandleAddReciept}>Add Reciept</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
     </>
   );
 }

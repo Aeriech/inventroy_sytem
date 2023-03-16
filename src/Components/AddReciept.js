@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import AdminHeader from './AdminHeader';
 
 
 export default function AddReciept() {

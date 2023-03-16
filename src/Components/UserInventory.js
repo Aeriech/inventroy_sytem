@@ -8,11 +8,19 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import AdminHeader from './AdminHeader';
+import CardContent from '@mui/material/CardContent';
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import TextField from "@mui/material/TextField";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -68,9 +76,29 @@ export default function UserInventory() {
     setCategory(event.target.value);
   };
 
-  const handleImageClick = (e) => {
-    alert('CLicked');
-  }
+  const [Title, setTitle] = React.useState("");
+  const [Category, setCat] = React.useState("");
+  const [Quantity, setQuantity] = React.useState("");
+  const [Price, setPrice] = React.useState("");
+  const [Photo, setPhoto] = React.useState("");
+  const handleImageClick = (photo, title, category, quantity, price) => {
+    setPhoto(photo);
+    setTitle(title);
+    setCat(category);
+    setQuantity(quantity);
+    setPrice(price);
+    setOpen(true);
+  };
+
+  const handleCat = (event) => {
+    setCat(event.target.value);
+  };
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const [sort, setSort] = React.useState('Expiry Date');
   <AdminHeader title={category} />
@@ -94,6 +122,8 @@ export default function UserInventory() {
       item.category.toLowerCase().includes(lowercaseQuery)
     );
   });
+
+  
 
   return (
     <>
@@ -137,6 +167,7 @@ export default function UserInventory() {
       <MenuItem value={3}>Column: 3</MenuItem>
       <MenuItem value={4}>Column: 4</MenuItem>
       <MenuItem value={5}>Column: 5</MenuItem>
+      <MenuItem value={6}>Column: 6</MenuItem>
     </Select>
   </Box>
   <Box style={{display: "flex", flexDirection: "column"}}>
@@ -173,23 +204,91 @@ export default function UserInventory() {
 </Box>
 
 <Box sx={{ marginTop: 8 }}>
-  <ImageList sx={{ width: '100%', height: 'auto' }} cols={column} gap={8}>
-    {filteredItemData.map((item) => (
-      <ImageListItem key={item.img} onClick={() => handleImageClick(item.title)}>
-        <img
-          src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-          srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-          alt={item.title}
-          loading="lazy"
-        />
-        <ImageListItemBar
-          title={item.title}
-          subtitle={<span>[Quantity: {item.quantity}] [Price: {item.price}]</span>}
-        />
-      </ImageListItem>
-    ))}
-  </ImageList>
-</Box>
+        <ImageList sx={{ width: "100%", height: "auto" }} cols={column} gap={8}>
+          {filteredItemData.map((item) => (
+            <ImageListItem
+              key={item.img}
+              onClick={() =>
+                handleImageClick(
+                  item.img,
+                  item.title,
+                  item.category,
+                  item.quantity,
+                  item.price
+                )
+              }
+            >
+              <img
+                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                alt={item.title}
+                loading="lazy"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {item.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  [Category: {item.category}] [Quantity: {item.quantity}]
+                  [Price: {item.price}]
+                </Typography>
+              </CardContent>
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </Box>
+
+      <div>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Update Item</DialogTitle>
+          <DialogContent>
+            <Card sx={{ maxWidth: 345 }}>
+              <CardMedia
+                component="img"
+                alt={Title}
+                height="200"
+                image={Photo}
+              />
+              <CardContent>
+                <div >
+                  <h4 style={{ marginRight: "10px" }}>Item Name: {Title}</h4>
+                </div>
+                <div>
+                  <h4 style={{ marginRight: "10px" }}>Category: {Category}</h4>
+                </div>
+
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <h4 style={{ marginRight: "10px" }}>Price</h4>
+                  <TextField
+                    required
+                    id="filled-required"
+                    defaultValue={Price}
+                    variant="filled"
+                    fullWidth="true"
+                    size="small"
+                  />
+                </div>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <h4 style={{ marginRight: "10px" }}>Quantity</h4>
+                  <TextField
+                    required
+                    id="filled-required"
+                    defaultValue={Quantity}
+                    variant="filled"
+                    fullWidth="true"
+                    size="small"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleClose}>Update</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
     </>
   );
 }
