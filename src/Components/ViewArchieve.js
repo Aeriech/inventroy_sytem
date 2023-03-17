@@ -64,7 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function UserInventory() {
+export default function ViewArchieve() {
     const [column, setColumn] = React.useState(4);
   const handleChange = (event) => {
     setColumn(event.target.value);
@@ -138,7 +138,7 @@ export default function UserInventory() {
               component="div"
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
             >
-              {category}
+              View Archieve
             </Typography>
             <Search>
               <SearchIconWrapper>
@@ -242,7 +242,7 @@ export default function UserInventory() {
 
       <div>
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Update Item</DialogTitle>
+          <DialogTitle>Archived Item</DialogTitle>
           <DialogContent>
             <Card sx={{ maxWidth: 345 }}>
               <CardMedia
@@ -258,60 +258,21 @@ export default function UserInventory() {
                 <div>
                   <h4 style={{ marginRight: "10px" }}>Category: {Category}</h4>
                 </div>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <h4 style={{ marginRight: "10px" }}>Measured By</h4>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={Mesurement}
-                    label="Mesurement"
-                    onChange={handleMesurement}
-                    fullWidth="true"
-                    size="small"
-                  >
-                    <MenuItem value={"Quantity"}>Quantity</MenuItem>
-                    <MenuItem value={"Kilogram"}>Kilogram</MenuItem>
-                    <MenuItem value={"Liter"}>Liter</MenuItem>
-                  </Select>
+                <div>
+                  <h4 style={{ marginRight: "10px" }}>Price: {Price}</h4>
                 </div>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <h4 style={{ marginRight: "10px" }}>Price</h4>
-                  <TextField
-                    required
-                    id="filled-required"
-                    defaultValue={Price}
-                    variant="filled"
-                    fullWidth="true"
-                    size="small"
-                  />
+                <div>
+                  <h4 style={{ marginRight: "10px" }}>Quantity: {Quantity}</h4>
                 </div>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <h4 style={{ marginRight: "10px" }}>{Mesurement}</h4>
-                  <TextField
-                    required
-                    id="filled-required"
-                    defaultValue={Quantity}
-                    variant="filled"
-                    fullWidth="true"
-                    size="small"
-                  />
-                </div>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <h4 style={{ marginRight: "10px" }}>Optional: Expiry Date</h4>
-                  <TextField
-                    required
-                    id="filled-required"
-                    variant="filled"
-                    fullWidth="true"
-                    size="small"
-                  />
+                <div>
+                  <h4 style={{ marginRight: "10px" }}>Expiry Date:</h4>
                 </div>
               </CardContent>
             </Card>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose}>Update</Button>
+            <Button onClick={handleClose}>Unarchive</Button>
           </DialogActions>
         </Dialog>
       </div>
@@ -323,87 +284,25 @@ export default function UserInventory() {
 
 const itemData = [
   {
-    img: 'https://i1.wp.com/healthyvegrecipes.com/wp-content/uploads/2013/09/eggplant2.jpg',
-    title: 'Eggplant',
+    img: 'https://th.bing.com/th/id/OIP.QdtQBEnMT2NTOE86QywvKgHaE7?pid=ImgDet&rs=1',
+    title: 'Onion',
     quantity: '260',
     price: '50',
     category: 'Vegetable'
   },
   {
-    img: 'https://th.bing.com/th/id/R.e804ba4af1857ab1b2ace691afad24f8?rik=pRIb3Ma9KMWvCg&riu=http%3a%2f%2fwww.wifss.ucdavis.edu%2fwp-content%2fuploads%2f2015%2f03%2fMilk-Pouring-istock-6x4.jpg&ehk=iO0ykbJLhNCc2Q49PYVqe%2fNk8rHAZGbn0LHUGWy8jjU%3d&risl=&pid=ImgRaw&r=0',
-    title: 'Milk',
+    img: 'https://th.bing.com/th/id/R.bb44af00b78b1f4fe512f92493ddac75?rik=Ai%2bQKAuNqoZBJw&riu=http%3a%2f%2f2.bp.blogspot.com%2f-aEqLBpS8dIA%2fT3DgUCEPnnI%2fAAAAAAAACIY%2fbdnXKH3owmQ%2fs1600%2fIMG_2030.JPG&ehk=JJZ1RtxR8LPnnu4%2fsfDLbANqtQDKgK%2fYme0W2FvGtCw%3d&risl=&pid=ImgRaw&r=0',
+    title: 'Creamer',
     quantity: '150',
     price: '200',
     category: 'Condiments'
   },
   {
-    img: 'https://labyrinthhealing.com/wp-content/uploads/2013/04/red-plate.jpg',
-    title: 'Plate',
+    img: 'https://th.bing.com/th/id/R.9cdc485db683a28a68504c864d590c9c?rik=f3lHeHjCYK8Zdg&riu=http%3a%2f%2fwww.myfamilysilver.com%2fuploads%2fproducts%2f18220%2f0_zoomed.jpg&ehk=kfvW%2f00x1pXpUc4jaD3Nfo8D1aM5bpYdildZo08zBIE%3d&risl=&pid=ImgRaw&r=0',
+    title: 'Fork',
     quantity: '400',
     price: '60',
     category: 'Utensils'
   },
-  {
-    img: 'https://fishersupermarket.ph/wp-content/uploads/2020/09/4800024575487.png',
-    title: 'Spaghetti Sauce',
-    quantity: '10',
-    price: '100',
-    category: 'Condiments'
-  },
-  {
-    img: 'https://i.ebayimg.com/images/g/M3YAAOSwXRRc0hpM/s-l640.jpg',
-    title: 'Spoon',
-    quantity: '200',
-    price: '20',
-    category: 'Untensils'
-  },
-  {
-    img: 'https://th.bing.com/th/id/R.062ba1f792c4203f5cfe7641c60cce94?rik=szZqkpZMPcQQCw&riu=http%3a%2f%2fi1.wp.com%2fwebnetsky.com%2flifehouse%2fwp-content%2fuploads%2f2013%2f01%2fSayote-in-Japan.jpg&ehk=VlLry6MkWYyA1LX0PbyyGzAxQfZTmSbS1acl6B3K8v8%3d&risl=&pid=ImgRaw&r=0',
-    title: 'Sayote',
-    quantity: '100',
-    price: '10',
-    category: 'Vegetables'
-  },
-  {
-    img: 'https://i5.walmartimages.com/asr/ea60d0e2-4942-47ae-80a5-ba38d30c4350_1.ee10a38d9642ab779537f8f7b3f19c3b.jpeg',
-    title: 'Pepper',
-    quantity: '89',
-    price: '15',
-    category: 'Vegetables'
-  },
-  {
-    img: 'https://th.bing.com/th/id/OIP.eNJ_rTh81MY_b_27U3M6RwHaFZ?pid=ImgDet&rs=1',
-    title: 'Oven',
-    quantity: '2',
-    price: '2000',
-    category: 'Equipments'
-  },
-  {
-    img: 'https://i5.walmartimages.com/asr/80fe3fdf-ac04-412a-a04e-82dae88c37b2_1.456bc5614399e0e8f58b2af02e6fc347.jpeg',
-    title: 'refrigerator',
-    quantity: '1',
-    price: '5000',
-    category: 'Equipments'
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
-    title: 'Tomato basil',
-    quantity: '100',
-    price: '20',
-    category: 'Vegetables'
-  },
-  {
-    img: 'https://th.bing.com/th/id/OIP.h-i1DVWF3K3rWf00yJRxyQHaE7?pid=ImgDet&rs=1',
-    title: 'Blender',
-    quantity: '2',
-    price: '1500',
-    category: 'Equipment'
-  },
-  {
-    img: 'https://www.halalfoodmaster.com/images/detailed/24/nescafe_300g.jpg',
-    title: 'Coffee',
-    quantity: '33',
-    price: '65',
-    category: 'Condiments'
-  },
+  
 ];

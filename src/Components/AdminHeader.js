@@ -24,8 +24,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Login from "./Login";
+import ViewReciept from "./ViewReciept";
+import ViewArchieve from "./ViewArchieve";
 
-const pages = ["Inventory", "Add Reciept", "Add Item"];
+const pages = ["Inventory", "Add Reciept", "Add Item","View Reciepts", "View Archives"];
 const settings = ["Profile", "Create New User", "History Log", "Logout"];
 
 export default function AdminHeader(props) {
@@ -60,6 +62,11 @@ export default function AdminHeader(props) {
     setCat(event.target.value);
   };
 
+  const [Mesurement, setMesurement] = React.useState("Quantity");
+  const handleMesurement = (event) => {
+    setMesurement(event.target.value);
+  };
+
   const [showLogin, setShowLogin] = useState(true);
   const [showInventory, setShowInventory] = useState(true);
 
@@ -77,6 +84,8 @@ export default function AdminHeader(props) {
     setAnchorElNav(null);
     //shows inventory
     if (e === "Inventory") {
+      setShowReciept(false);
+      setShowArchieve(false);
       setShowInventory(true);
     }
     //shows add item
@@ -87,7 +96,19 @@ export default function AdminHeader(props) {
     else if (e === "Add Reciept") {
       setAddReciept(true);
     }
+    else if (e === "View Reciepts") {
+      setShowReciept(true);
+      setShowInventory(false);
+      setShowArchieve(false);
+    }
+    else if (e === "View Archives") {
+      setShowReciept(false);
+      setShowInventory(false);
+      setShowArchieve(true);
+    }
   };
+  const [showArchieve, setShowArchieve] = useState(false);
+  const [showReciept, setShowReciept] = useState(false);
 
   const handleCloseUserMenu = (e) => {
     setAnchorElUser(null);
@@ -238,6 +259,8 @@ export default function AdminHeader(props) {
         </Container>
       </AppBar>
       {showInventory && <AdminInventory />}
+      {showReciept && <ViewReciept/>}
+      {showArchieve && <ViewArchieve/>}
       <div>
         <Dialog open={addItem} onClose={HandleAddItem}>
           <DialogTitle>Add Item</DialogTitle>
@@ -272,6 +295,22 @@ export default function AdminHeader(props) {
                     <MenuItem value={"Utensils"}>Untensils</MenuItem>
                   </Select>
                 </div>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <h4 style={{ marginRight: "10px" }}>Measured By</h4>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={Mesurement}
+                    label="Mesurement"
+                    onChange={handleMesurement}
+                    fullWidth="true"
+                    size="small"
+                  >
+                    <MenuItem value={"Quantity"}>Quantity</MenuItem>
+                    <MenuItem value={"Kilogram"}>Kilogram</MenuItem>
+                    <MenuItem value={"Liter"}>Liter</MenuItem>
+                  </Select>
+                </div>
 
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <h4 style={{ marginRight: "10px" }}>Price</h4>
@@ -284,7 +323,17 @@ export default function AdminHeader(props) {
                   />
                 </div>
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <h4 style={{ marginRight: "10px" }}>Quantity</h4>
+                  <h4 style={{ marginRight: "10px" }}>{Mesurement}</h4>
+                  <TextField
+                    required
+                    id="filled-required"
+                    variant="filled"
+                    fullWidth="true"
+                    size="small"
+                  />
+                </div>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <h4 style={{ marginRight: "10px" }}>Optional: Expiry Date</h4>
                   <TextField
                     required
                     id="filled-required"
@@ -312,6 +361,16 @@ export default function AdminHeader(props) {
               <CardContent>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <h4 style={{ marginRight: "10px" }}>Description</h4>
+                  <TextField
+                    required
+                    id="filled-required"
+                    variant="filled"
+                    fullWidth="true"
+                    size="small"
+                  />
+                </div>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <h4 style={{ marginRight: "10px" }}>Amount</h4>
                   <TextField
                     required
                     id="filled-required"

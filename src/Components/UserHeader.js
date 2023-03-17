@@ -23,10 +23,10 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import UserInventory from './UserInventory';
 import Login from './Login';
-import AddReciept from './AddReciept';
+import ViewReciept from './ViewReciept';
 
 
-const pages = ['Inventory','Add Reciept'];
+const pages = ['Inventory','Add Reciept','View Reciepts'];
 const settings = ['Profile',  'Logout'];
 
 
@@ -66,6 +66,10 @@ export default function UserHeader() {
       //show add receipt page
       else if(e === 'Add Reciept'){
         setAddReciept(true);
+      }
+      else if(e === 'View Reciepts'){
+        setShowReciept(true);
+        setShowInventory(false);
       }
   };
 
@@ -208,7 +212,7 @@ export default function UserHeader() {
       </Container>
     </AppBar>
     {showInventory && <UserInventory/>}
-    {showReciept && <AddReciept/>}
+    {showReciept && <ViewReciept/>}
 
     <div>
         <Dialog open={showProfile} onClose={HandleShowProfile}>
@@ -239,6 +243,16 @@ export default function UserHeader() {
               <CardContent>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <h4 style={{ marginRight: "10px" }}>Description</h4>
+                  <TextField
+                    required
+                    id="filled-required"
+                    variant="filled"
+                    fullWidth="true"
+                    size="small"
+                  />
+                </div>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <h4 style={{ marginRight: "10px" }}>Amount</h4>
                   <TextField
                     required
                     id="filled-required"
