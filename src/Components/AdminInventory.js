@@ -6,8 +6,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -21,6 +19,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import TextField from "@mui/material/TextField";
+import { Grid } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -206,10 +205,16 @@ export default function AdminInventory() {
         </Box>
       </Box>
 
-      <Box sx={{ marginTop: 8 }}>
-        <ImageList sx={{ width: "100%", height: "auto" }} cols={column} gap={8}>
+      <Box sx={{ marginTop: 5 }}>
+        <Grid container spacing={{ xs: 2, md: 3 }}>
           {filteredItemData.map((item) => (
-            <ImageListItem
+            <Grid
+              item
+              xs={6}
+              sm={4}
+              md={3}
+              lg={2}
+              xl={2}
               key={item.img}
               onClick={() =>
                 handleImageClick(
@@ -220,25 +225,44 @@ export default function AdminInventory() {
                   item.price
                 )
               }
+              sx={{ border: "1px solid #ccc", padding: "1rem" }}
             >
-              <img
-                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.title}
-                loading="lazy"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {item.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  [Category: {item.category}] [Quantity: {item.quantity}]
-                  [Price: {item.price}]
-                </Typography>
-              </CardContent>
-            </ImageListItem>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                }}
+              >
+                <div style={{ marginBottom: "1rem" }}>
+                  <img
+                    height={"100px"}
+                    width={"100px"}
+                    src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                    srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    alt={item.title}
+                    loading="lazy"
+                  />
+                </div>
+                <div>
+                  <Typography variant="body2" align="left">
+                    Item Name: {item.title}
+                  </Typography>
+                  <Typography variant="body2" align="left">
+                    Category: {item.category}
+                  </Typography>
+                  <Typography variant="body2" align="left">
+                    Quantity: {item.quantity}
+                  </Typography>
+                  <Typography variant="body2" align="left">
+                    Price: {item.price}
+                  </Typography>
+                </div>
+              </div>
+            </Grid>
           ))}
-        </ImageList>
+        </Grid>
       </Box>
 
       <div>
@@ -350,7 +374,7 @@ const itemData = [
     title: "Eggplant",
     quantity: "260",
     price: "50",
-    category: "Vegetable",
+    category: "Vegetables",
   },
   {
     img: "https://th.bing.com/th/id/R.e804ba4af1857ab1b2ace691afad24f8?rik=pRIb3Ma9KMWvCg&riu=http%3a%2f%2fwww.wifss.ucdavis.edu%2fwp-content%2fuploads%2f2015%2f03%2fMilk-Pouring-istock-6x4.jpg&ehk=iO0ykbJLhNCc2Q49PYVqe%2fNk8rHAZGbn0LHUGWy8jjU%3d&risl=&pid=ImgRaw&r=0",
@@ -378,7 +402,7 @@ const itemData = [
     title: "Spoon",
     quantity: "200",
     price: "20",
-    category: "Untensils",
+    category: "Utensils",
   },
   {
     img: "https://th.bing.com/th/id/R.062ba1f792c4203f5cfe7641c60cce94?rik=szZqkpZMPcQQCw&riu=http%3a%2f%2fi1.wp.com%2fwebnetsky.com%2flifehouse%2fwp-content%2fuploads%2f2013%2f01%2fSayote-in-Japan.jpg&ehk=VlLry6MkWYyA1LX0PbyyGzAxQfZTmSbS1acl6B3K8v8%3d&risl=&pid=ImgRaw&r=0",

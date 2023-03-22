@@ -6,8 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
+import { Grid } from "@mui/material";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -205,10 +204,16 @@ export default function UserInventory() {
   </Box>
 </Box>
 
-<Box sx={{ marginTop: 8 }}>
-        <ImageList sx={{ width: "100%", height: "auto" }} cols={column} gap={8}>
+<Box sx={{ marginTop: 5 }}>
+        <Grid container spacing={{ xs: 2, md: 3 }}>
           {filteredItemData.map((item) => (
-            <ImageListItem
+            <Grid
+              item
+              xs={6}
+              sm={4}
+              md={3}
+              lg={2}
+              xl={2}
               key={item.img}
               onClick={() =>
                 handleImageClick(
@@ -219,25 +224,44 @@ export default function UserInventory() {
                   item.price
                 )
               }
+              sx={{ border: "1px solid #ccc", padding: "1rem" }}
             >
-              <img
-                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.title}
-                loading="lazy"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {item.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  [Category: {item.category}] [Quantity: {item.quantity}]
-                  [Price: {item.price}]
-                </Typography>
-              </CardContent>
-            </ImageListItem>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                }}
+              >
+                <div style={{ marginBottom: "1rem" }}>
+                  <img
+                    height={"100px"}
+                    width={"100px"}
+                    src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                    srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    alt={item.title}
+                    loading="lazy"
+                  />
+                </div>
+                <div>
+                  <Typography variant="body2" align="left">
+                    Item Name: {item.title}
+                  </Typography>
+                  <Typography variant="body2" align="left">
+                    Category: {item.category}
+                  </Typography>
+                  <Typography variant="body2" align="left">
+                    Quantity: {item.quantity}
+                  </Typography>
+                  <Typography variant="body2" align="left">
+                    Price: {item.price}
+                  </Typography>
+                </div>
+              </div>
+            </Grid>
           ))}
-        </ImageList>
+        </Grid>
       </Box>
 
       <div>
@@ -323,87 +347,87 @@ export default function UserInventory() {
 
 const itemData = [
   {
-    img: 'https://i1.wp.com/healthyvegrecipes.com/wp-content/uploads/2013/09/eggplant2.jpg',
-    title: 'Eggplant',
-    quantity: '260',
-    price: '50',
-    category: 'Vegetable'
+    img: "https://i1.wp.com/healthyvegrecipes.com/wp-content/uploads/2013/09/eggplant2.jpg",
+    title: "Eggplant",
+    quantity: "260",
+    price: "50",
+    category: "Vegetables",
   },
   {
-    img: 'https://th.bing.com/th/id/R.e804ba4af1857ab1b2ace691afad24f8?rik=pRIb3Ma9KMWvCg&riu=http%3a%2f%2fwww.wifss.ucdavis.edu%2fwp-content%2fuploads%2f2015%2f03%2fMilk-Pouring-istock-6x4.jpg&ehk=iO0ykbJLhNCc2Q49PYVqe%2fNk8rHAZGbn0LHUGWy8jjU%3d&risl=&pid=ImgRaw&r=0',
-    title: 'Milk',
-    quantity: '150',
-    price: '200',
-    category: 'Condiments'
+    img: "https://th.bing.com/th/id/R.e804ba4af1857ab1b2ace691afad24f8?rik=pRIb3Ma9KMWvCg&riu=http%3a%2f%2fwww.wifss.ucdavis.edu%2fwp-content%2fuploads%2f2015%2f03%2fMilk-Pouring-istock-6x4.jpg&ehk=iO0ykbJLhNCc2Q49PYVqe%2fNk8rHAZGbn0LHUGWy8jjU%3d&risl=&pid=ImgRaw&r=0",
+    title: "Milk",
+    quantity: "150",
+    price: "200",
+    category: "Condiments",
   },
   {
-    img: 'https://labyrinthhealing.com/wp-content/uploads/2013/04/red-plate.jpg',
-    title: 'Plate',
-    quantity: '400',
-    price: '60',
-    category: 'Utensils'
+    img: "https://labyrinthhealing.com/wp-content/uploads/2013/04/red-plate.jpg",
+    title: "Plate",
+    quantity: "400",
+    price: "60",
+    category: "Utensils",
   },
   {
-    img: 'https://fishersupermarket.ph/wp-content/uploads/2020/09/4800024575487.png',
-    title: 'Spaghetti Sauce',
-    quantity: '10',
-    price: '100',
-    category: 'Condiments'
+    img: "https://fishersupermarket.ph/wp-content/uploads/2020/09/4800024575487.png",
+    title: "Spaghetti Sauce",
+    quantity: "10",
+    price: "100",
+    category: "Condiments",
   },
   {
-    img: 'https://i.ebayimg.com/images/g/M3YAAOSwXRRc0hpM/s-l640.jpg',
-    title: 'Spoon',
-    quantity: '200',
-    price: '20',
-    category: 'Untensils'
+    img: "https://i.ebayimg.com/images/g/M3YAAOSwXRRc0hpM/s-l640.jpg",
+    title: "Spoon",
+    quantity: "200",
+    price: "20",
+    category: "Utensils",
   },
   {
-    img: 'https://th.bing.com/th/id/R.062ba1f792c4203f5cfe7641c60cce94?rik=szZqkpZMPcQQCw&riu=http%3a%2f%2fi1.wp.com%2fwebnetsky.com%2flifehouse%2fwp-content%2fuploads%2f2013%2f01%2fSayote-in-Japan.jpg&ehk=VlLry6MkWYyA1LX0PbyyGzAxQfZTmSbS1acl6B3K8v8%3d&risl=&pid=ImgRaw&r=0',
-    title: 'Sayote',
-    quantity: '100',
-    price: '10',
-    category: 'Vegetables'
+    img: "https://th.bing.com/th/id/R.062ba1f792c4203f5cfe7641c60cce94?rik=szZqkpZMPcQQCw&riu=http%3a%2f%2fi1.wp.com%2fwebnetsky.com%2flifehouse%2fwp-content%2fuploads%2f2013%2f01%2fSayote-in-Japan.jpg&ehk=VlLry6MkWYyA1LX0PbyyGzAxQfZTmSbS1acl6B3K8v8%3d&risl=&pid=ImgRaw&r=0",
+    title: "Sayote",
+    quantity: "100",
+    price: "10",
+    category: "Vegetables",
   },
   {
-    img: 'https://i5.walmartimages.com/asr/ea60d0e2-4942-47ae-80a5-ba38d30c4350_1.ee10a38d9642ab779537f8f7b3f19c3b.jpeg',
-    title: 'Pepper',
-    quantity: '89',
-    price: '15',
-    category: 'Vegetables'
+    img: "https://i5.walmartimages.com/asr/ea60d0e2-4942-47ae-80a5-ba38d30c4350_1.ee10a38d9642ab779537f8f7b3f19c3b.jpeg",
+    title: "Pepper",
+    quantity: "89",
+    price: "15",
+    category: "Vegetables",
   },
   {
-    img: 'https://th.bing.com/th/id/OIP.eNJ_rTh81MY_b_27U3M6RwHaFZ?pid=ImgDet&rs=1',
-    title: 'Oven',
-    quantity: '2',
-    price: '2000',
-    category: 'Equipments'
+    img: "https://th.bing.com/th/id/OIP.eNJ_rTh81MY_b_27U3M6RwHaFZ?pid=ImgDet&rs=1",
+    title: "Oven",
+    quantity: "2",
+    price: "2000",
+    category: "Equipments",
   },
   {
-    img: 'https://i5.walmartimages.com/asr/80fe3fdf-ac04-412a-a04e-82dae88c37b2_1.456bc5614399e0e8f58b2af02e6fc347.jpeg',
-    title: 'refrigerator',
-    quantity: '1',
-    price: '5000',
-    category: 'Equipments'
+    img: "https://i5.walmartimages.com/asr/80fe3fdf-ac04-412a-a04e-82dae88c37b2_1.456bc5614399e0e8f58b2af02e6fc347.jpeg",
+    title: "refrigerator",
+    quantity: "1",
+    price: "5000",
+    category: "Equipments",
   },
   {
-    img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
-    title: 'Tomato basil',
-    quantity: '100',
-    price: '20',
-    category: 'Vegetables'
+    img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
+    title: "Tomato basil",
+    quantity: "100",
+    price: "20",
+    category: "Vegetables",
   },
   {
-    img: 'https://th.bing.com/th/id/OIP.h-i1DVWF3K3rWf00yJRxyQHaE7?pid=ImgDet&rs=1',
-    title: 'Blender',
-    quantity: '2',
-    price: '1500',
-    category: 'Equipment'
+    img: "https://th.bing.com/th/id/OIP.h-i1DVWF3K3rWf00yJRxyQHaE7?pid=ImgDet&rs=1",
+    title: "Blender",
+    quantity: "2",
+    price: "1500",
+    category: "Equipment",
   },
   {
-    img: 'https://www.halalfoodmaster.com/images/detailed/24/nescafe_300g.jpg',
-    title: 'Coffee',
-    quantity: '33',
-    price: '65',
-    category: 'Condiments'
+    img: "https://www.halalfoodmaster.com/images/detailed/24/nescafe_300g.jpg",
+    title: "Coffee",
+    quantity: "33",
+    price: "65",
+    category: "Condiments",
   },
 ];
